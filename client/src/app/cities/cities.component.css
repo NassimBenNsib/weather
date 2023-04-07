@@ -1,0 +1,34 @@
+#MainContainer{
+    margin-left: 15vw;
+    margin-top: 8vh;
+    width: 85vw;
+    height: 92vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-left: 2vw;
+    padding-top: 2vh;
+    overflow-y: auto;
+}
+
+#CurrentWeather{
+    width: 50%;
+    box-sizing: border-box;
+    padding: 1vw;
+}
+
+#City{
+    width: 30vw;
+    height: 30vh;
+    position: relative;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+    padding: 2%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: row;
+    cursor: pointer;
+}

@@ -1,0 +1,51 @@
+<div id="MainContainer">
+    <div id="Search">
+        <span class="material-symbols-outlined icon">search</span>
+        <input (keyup)="autocompleteCities($event)" type="text" placeholder="Search City" [matAutocomplete]="autocomplete">
+    </div>
+    <span id="Notification" [matMenuTriggerFor]="NotificationsMenu" [matBadge]="userService.isUserLogged ? userService.user?.notification?.length:0" matBadgeColor="accent" matBadgeSize="small" class="material-symbols-outlined">notifications</span>
+    <div id="Avatar" *ngIf="userService.isUserLogged" [matMenuTriggerFor]="AvatarMenu">
+        <div id="AvatarImg">{{this.userService.user?.nom?.toUpperCase()?.at(0)}}{{this.userService.user?.prenom?.toUpperCase()?.at(0)}}</div>
+        <span>{{this.userService.user?.nom}} {{this.userService.user?.prenom}}</span>
+    </div>
+    <button [routerLink]="['/Login']" id="SignInBtn" *ngIf="!userService.isUserLogged" mat-stroked-button color="primary">Sign in</button>
+</div>
+
+
+
+<mat-menu #NotificationsMenu="matMenu">
+    <div id="NotificationsOff" *ngIf="!userService.isUserLogged">
+        <span class="material-symbols-outlined">notifications_off</span>
+        <span style="margin-top: 5%;">Login to your account <br>to recieve notifications</span>
+    </div>
+    <div class="column" id="NotificationsOn" *ngIf="userService.user?.notification?.length != 0">
+
+        <div  class="column notification" *ngFor="let notification of userService.user?.notification">
+          <div class="row" style="align-items: center; width: 100%">
+            <div style="padding: 3.5px; background-color: var(--2Color); border-radius: 50%; justify-self: start; margin-right: 0.5vw;"></div>
+            <div style="flex: 5;"><b>{{notification.type}}</b></div>
+            <!--<div style="cursor: pointer;" >
+              <span class="material-symbols-outlined icon" style="font-size: 15px;color: black;">close</span>
+            </div>-->
+          </div>
+          <div style="margin-bottom: 0.5vw;"> {{notification.ville}}</div>
+        </div>
+  </div>
+</mat-menu>
+
+
+<mat-menu #AvatarMenu="matMenu">
+    <button (click)="userService._logout()" mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+</mat-menu>
+
+
+<mat-autocomplete #autocomplete="matAutocomplete">
+  <mat-option *ngFor="let city of cities" [value]="city.name" (onSelectionChange)="citySelected(city)">
+    <!--<img alt="" class="example-option-img" [src]="state.flag" height="25">-->
+    <span>{{city.country}}</span> |
+    <small>{{city.name}}</small>
+  </mat-option>
+</mat-autocomplete>

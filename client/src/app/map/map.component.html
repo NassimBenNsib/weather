@@ -1,0 +1,124 @@
+<div id="MainContainer">
+    <mgl-map #map
+    [style]="'https://api.maptiler.com/maps/streets/style.json?key=TQUed2PX6IF7nMlESPX8'"
+    [zoom]="[0]"
+    [center]="[2.1734035, 41.3850639]">
+  
+ 
+  <mgl-popup *ngIf="selectedCity"  #popup [lngLat]="[selectedCity.lon!,selectedCity.lat!]" [closeButton]="true" [closeOnClick]="false">
+    <div  #cityDetails>
+        <div *ngIf="loading">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+        <div *ngIf="loading == false && selectedCity" style="width: 15vw;">
+                <div class="cityName"> {{selectedCity.name}}</div>
+            <div class="cityDetails">
+                <div class="cityDetail">
+                    <span class="detail">Country</span>
+                    <span class="detailValue">{{selectedCity.country}}</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Temp</span>
+                    <span class="detailValue">{{selectedCity.temp}}˚C</span>
+                </div>
+                <!--<div class="cityDetail">
+                    <span class="detail">Clouds</span>
+                    <span class="detailValue">{{selectedCity.clouds}}%</span>
+                </div>-->
+                <div class="cityDetail">
+                    <span class="detail">Humidity</span>
+                    <span class="detailValue">{{selectedCity.humidity}}%</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Pressure</span>
+                    <span class="detailValue">{{selectedCity.pressure}}hPa</span>
+                </div> 
+                <div class="cityDetail">
+                    <span class="detail">Wind Direction</span>
+                    <span class="detailValue">{{selectedCity.windDirection}}˚</span>
+                </div> 
+                <div class="cityDetail">
+                    <span class="detail">Wind Speed</span>
+                    <span class="detailValue">{{selectedCity.windSpeed}}m/s</span>
+                </div>
+                <button mat-raised-button color="accent" id="AddCity" (click)="addCity()">Add City</button>
+            </div>  
+        </div>
+    </div>
+  </mgl-popup>
+
+  <mgl-marker *ngFor="let city of userService.user?.villes"  class="marker" [lngLat]="[city.lon!,city.lat!]">
+    <div (click)="selectCity(city)" class="marker">
+        <div class="myFollowedMarker">
+            {{city.ville}}
+        </div>
+    </div>
+  </mgl-marker>
+
+  <mgl-marker *ngFor="let city1 of cityService.searchedCities" class="marker" [lngLat]="[city1.lon!,city1.lat!]">
+    <div (click)="selectCity(city1)" class="marker">
+        <div class="mySearchedMarker">
+            {{city1.name}}
+        </div>
+    </div>
+  </mgl-marker>
+
+
+
+  <mgl-control mglNavigation position="top-left"></mgl-control>
+  <mgl-control mglFullscreen position="top-right"></mgl-control>
+  <mgl-control mglGeolocate position="top-right"></mgl-control>
+  </mgl-map>
+</div>
+
+
+
+<!--<div id="MainContainer">
+    <div class="map-wrap">
+        <a href="https://www.maptiler.com" class="watermark"><img
+            src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"/></a>
+        <div class="map" #map></div>
+    </div>
+
+
+
+    <div  #cityDetails>
+        <div *ngIf="loading">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+        <div *ngIf="loading == false && selectedCity" style="width: 15vw;">
+                <div class="cityName"> {{selectedCity.name}}</div>
+            <div class="cityDetails">
+                <div class="cityDetail">
+                    <span class="detail">Country</span>
+                    <span class="detailValue">{{selectedCity.country}}</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Temp</span>
+                    <span class="detailValue">{{selectedCity.temp}}˚C</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Clouds</span>
+                    <span class="detailValue">{{selectedCity.clouds}}%</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Humidity</span>
+                    <span class="detailValue">{{selectedCity.humidity}}%</span>
+                </div>
+                <div class="cityDetail">
+                    <span class="detail">Pressure</span>
+                    <span class="detailValue">{{selectedCity.pressure}}hPa</span>
+                </div> 
+                <div class="cityDetail">
+                    <span class="detail">Wind Direction</span>
+                    <span class="detailValue">{{selectedCity.windDirection}}˚</span>
+                </div> 
+                <div class="cityDetail">
+                    <span class="detail">Wind Speed</span>
+                    <span class="detailValue">{{selectedCity.windSpeed}}m/s</span>
+                </div>
+                <button mat-raised-button color="accent" id="AddCity" (click)="addCity()">Add City</button>
+            </div>  
+        </div>
+    </div>
+</div>-->

@@ -1,0 +1,71 @@
+#MainContainer{
+    margin-left: 15vw;
+    margin-top: 8vh;
+    width: 85vw;
+    height: 92vh;
+}
+
+#Profile, #Application{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+    justify-content: center;
+    padding-top: 3%;
+}
+
+#Application{
+    margin-top: 3%;
+}
+#Profile span:nth-child(1), #Application span:nth-child(1){
+    font-weight: 500;
+    font-size: 15px;
+}
+#Profile span:nth-child(2),#Application span:nth-child(2){
+    color: rgb(145, 145, 145);
+    font-size: 12px;
+}
+
+hr {
+    height:1px;
+    border-width:0;
+    background-color:#c4c4c4;
+    width: 94%;
+    margin-top: 1.5%;
+}
+
+#Name, #Lastname, #Email, #Password{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin-left: 3%;
+}
+
+input{
+    border-radius: 5px;
+    height: 2.5vh;
+    border : 1px solid rgb(219, 219, 219);
+    margin-top: 1vh;
+    padding: 7px;
+}
+
+#Buttons{
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+#SaveBtn{
+    margin-left: 3%;
+}
+
+.required{
+    color : red;
+    vertical-align: top;
+}
+
+.inputError{
+    color: red;
+    font-size: 11px;
+}

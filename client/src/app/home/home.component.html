@@ -1,0 +1,152 @@
+<div *ngIf="!cityService.selectedCityForecast || !cityService.selectedCity" id="MainContainer" style="justify-content: center;align-items: center;" >
+    <mat-spinner></mat-spinner>
+</div>
+<div id="MainContainer" *ngIf="cityService.selectedCityForecast && cityService.selectedCity">
+    <div id="CurrentWeather" class="Container">
+        <div class="Subtitle">Location</div>
+        <div class="Title">{{cityService.selectedCity.name}} - {{cityService.selectedCity.country}}</div>
+        <div class="Row" style="margin-top: 2%; height: 80%;">
+            <div id="City" [ngStyle]="{'background-image':'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('+cityService.selectedCity.image+')'}">
+                <div class="Row">
+                    <img [src]="cityService.cityWeatherIcon(cityService.forecastDays[0]['date'].getDate())" style="transform: scale(1.5);">
+                    <div style="font-weight: 500; color: white;font-size: 60px;">{{cityService.selectedCity.temp}}º</div>
+                </div>
+            </div>
+            <div id="AddCity" [routerLink]="['/Map']">
+                <span class="material-symbols-outlined icon">add</span>
+                <span>Add City</span>
+            </div>
+        </div>
+    </div>
+    <div id="ChanceOfRain" class="Container">
+        <div class= "Title" style="margin-bottom: 2vh;"> Chance Of Rain (%)</div>
+
+        <ngx-charts-bar-horizontal 
+    [view]="[300,300]"
+    [results]="cityService.chanceOfRain"
+    [xAxisLabel]="'Percentage'"
+    [legendTitle]="''"
+    [yAxisLabel]="'Time'"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true"
+    [showGridLines]="false"
+    [customColors]="customColors"
+    >
+        </ngx-charts-bar-horizontal>
+
+
+    </div>
+    <div id="Today" class="Container">
+        <div class="Title">Today's Highlights</div>
+        <div class="Row" style="justify-content: space-between;margin-top: 2%;">
+            <div class="HighlightContainer">
+                <div class="Subtitle">
+                    Humidity
+                </div>
+                <div align="center" style="margin-top: 20%;">{{cityService.selectedCity.humidity}}%</div>
+            </div>
+            <div class="HighlightContainer">
+                <div class="Subtitle">
+                    Wind Speed
+                </div>
+                <div align="center" style="margin-top: 20%;">{{cityService.selectedCity.windSpeed}} Km/h</div>
+            </div>
+            <div class="HighlightContainer">
+                <div class="Subtitle">
+                    Pressure
+                </div>
+                <div align="center" style="margin-top: 20%;">{{cityService.selectedCity.pressure}} hPa</div>
+            </div>
+            <div class="HighlightContainer">
+                <div class="Subtitle">
+                    Wind Direction
+                </div>
+                <div align="center" style="margin-top: 20%;">{{cityService.selectedCity.windDirection}}º</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 5vh ;">
+     
+        <ngx-charts-area-chart 
+        [view]="[800,130]"
+        [results]="cityService.temp"
+        [xAxisLabel]="'Percentage'"
+        [legendTitle]="''"
+        [yAxisLabel]="'Time'"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true"
+        [showGridLines]="false"
+        [customColors]="customColors"
+        >
+        </ngx-charts-area-chart>
+    </div>
+    </div>
+
+
+    <div id="MinMax" class = "Container">
+        <div class="Title">3 Day Forecast</div>
+
+
+        <div class="Row">
+            <div class="Row" id="MinMaxRow"> 
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_upward</span>
+                <span>{{cityService.forecastDays[1]["maxTemp"]}}º</span>
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_downward</span>
+                <span>{{cityService.forecastDays[1]["minTemp"]}}º</span>
+            </div>
+            <div class="Row" id="MinMaxDay"> 
+                <img [src]="cityService.cityWeatherIcon(cityService.forecastDays[1]['date'].getDate())" width="30%">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="Title" style="font-size: 12px; color: black;"> {{cityService.days[cityService.forecastDays[1]["date"].getDay()]}} </div>
+                    <div class="Subtitle" style="font-size: 12px;">{{cityService.cityWeatherStatus(cityService.forecastDays[1]['date'].getDate())}}</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="Row">
+            <div class="Row" id="MinMaxDay"> 
+                <img [src]="cityService.cityWeatherIcon(cityService.forecastDays[2]['date'].getDate())" width="30%">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="Title" style="font-size: 12px; color: black;"> {{cityService.days[cityService.forecastDays[2]["date"].getDay()]}} </div>
+                    <div class="Subtitle" style="font-size: 12px;">{{cityService.cityWeatherStatus(cityService.forecastDays[1]['date'].getDate())}}</div>
+                </div>
+            </div>
+            <div class="Row" id="MinMaxRow"> 
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_upward</span>
+                <span>{{cityService.forecastDays[2]["maxTemp"]}}º</span>
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_downward</span>
+                <span>{{cityService.forecastDays[2]["minTemp"]}}º</span>
+            </div>
+        </div>
+
+
+
+
+        <div class="Row">
+            <div class="Row" id="MinMaxRow"> 
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_upward</span>
+                <span>{{cityService.forecastDays[3]["maxTemp"]}}º</span>
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_downward</span>
+                <span>{{cityService.forecastDays[3]["minTemp"]}}º</span>
+            </div>
+            <div class="Row" id="MinMaxDay"> 
+                <img [src]="cityService.cityWeatherIcon(cityService.forecastDays[3]['date'].getDate())" width="30%">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="Title" style="font-size: 12px; color: black;"> {{cityService.days[cityService.forecastDays[3]["date"].getDay()]}} </div>
+                    <div class="Subtitle" style="font-size: 12px;">{{cityService.cityWeatherStatus(cityService.forecastDays[1]['date'].getDate())}}</div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div id="MainContainer">
+    <div id="Logo">
+        <img src="../../assets/Img/LogoWhite.png" width="75%">
+    </div>
+    <div id="MenuList">
+        <div [routerLink]="['/Home']" routerLinkActive="active" matRipple  id="Home">
+            <span class="material-symbols-outlined icon">home</span>
+            Home
+        </div>
+        <div [routerLink]="['/Forecast']" routerLinkActive="active" matRipple id="Forecast">
+            <span class="material-symbols-outlined icon">nights_stay</span>
+            Forecast
+        </div>
+        <div [routerLink]="['/Map']" routerLinkActive="active" matRipple id="Map">
+            <span class="material-symbols-outlined icon">map</span>
+            Map
+        </div>
+        <div *ngIf="this.userService.isUserLogged" [routerLink]="['/Settings']" routerLinkActive="active" matRipple id="Settings">
+            <span class="material-symbols-outlined icon">settings</span>
+            Settings
+        </div>
+        <div *ngIf="this.userService.isUserLogged" [routerLink]="['/Cities']" routerLinkActive="active" matRipple id="Cities" style="margin-top: 20%;">
+            <span class="material-symbols-outlined icon">pin_drop</span>
+            Cities
+        </div>
+    </div>
+</div>
+
+

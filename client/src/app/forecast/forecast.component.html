@@ -1,0 +1,179 @@
+<div *ngIf="!cityService.selectedCityForecast || !cityService.selectedCity" id="MainContainer" style="justify-content: center;align-items: center;" >
+    <mat-spinner></mat-spinner>
+</div>
+<div id="MainContainer" *ngIf="cityService.selectedCityForecast && cityService.selectedCity">
+
+    <div id="CurrentWeather" class="Container row" style="justify-content: space-between;">
+        <div *ngFor="let item of cityService.forecastDays" class="container column day" [ngClass]="item.date.getDate() == cityService.selectedDate.getDate() ? 'daySelected' : ''" (click)="cityService.selectedDate.setDate(item.date.getDate()); cityService.refreshForecast(); cityService.cityWeatherIcon(item.date.getDate())">
+            <div>{{cityService.days[item.date.getDay()]}}</div>
+            <img [src]="cityService.cityWeatherIcon(item.date.getDate())" width="100%">
+            <div class="row" style="align-items: space-between;">
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_upward</span>
+                &nbsp;<span>{{item.maxTemp}}º</span>
+                &nbsp;<span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_downward</span>
+                <span>{{item.minTemp}}º</span>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="ChanceOfRain" class="Container">
+        <div class= "Title" style="margin-bottom: 2vh;"> Chance Of Rain (%)</div>
+
+        <ngx-charts-bar-horizontal 
+    [view]="[300,300]"
+    [results]="cityService.chanceOfRain"
+    [xAxisLabel]="'Percentage'"
+    [legendTitle]="''"
+    [yAxisLabel]="'Time'"
+    [showXAxisLabel]="false"
+    [showYAxisLabel]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true"
+    [showGridLines]="false"
+    [customColors]="customColors"
+    [noBarWhenZero]="false"
+    >
+        </ngx-charts-bar-horizontal>
+
+
+    </div>
+
+    <div id="Today" class="Container">
+        <div class="Title">Highlights of the day</div>
+
+        <div class="row" style="margin-top: 5vh;">
+
+        <div class="column">
+            <div class="subtitle">Pressure (hPa)</div>
+                <ngx-charts-area-chart 
+                [view]="[380,70]"
+                [results]="cityService.pressure"
+                [xAxisLabel]="'Pressure'"
+                [legendTitle]="'Pressure'"
+                [yAxisLabel]="'Time'"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxis]="false"
+                [yAxis]="false"
+                [gradient]="true"
+                [showGridLines]="false"
+                [customColors]="customColors"
+                >
+            </ngx-charts-area-chart>
+        </div>
+
+        <div class="column">
+            <div class="subtitle">Humidity (%)</div>
+            
+                <ngx-charts-area-chart 
+                [view]="[380,70]"
+                [results]="cityService.humidity"
+                [xAxisLabel]="'Pressure'"
+                [legendTitle]="'Pressure'"
+                [yAxisLabel]="'Time'"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxis]="false"
+                [yAxis]="false"
+                [gradient]="true"
+                [showGridLines]="false"
+                [customColors]="customColors"
+                [legend]="false"
+                >
+            </ngx-charts-area-chart>
+        </div>
+
+
+        <div class="column">
+            <div class="subtitle">Wind Speed (Km/h)</div>
+            
+                <ngx-charts-area-chart 
+                [view]="[380,70]"
+                [results]="cityService.speed"
+                [xAxisLabel]="'Pressure'"
+                [legendTitle]="'Pressure'"
+                [yAxisLabel]="'Time'"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxis]="false"
+                [yAxis]="false"
+                [gradient]="true"
+                [showGridLines]="false"
+                [customColors]="customColors"
+                [legend]="false"
+                >
+            </ngx-charts-area-chart>
+        </div>
+
+
+        <div class="column">
+            <div class="subtitle">Wind Direction (degº)</div>
+            
+                <ngx-charts-area-chart 
+                [view]="[380,70]"
+                [results]="cityService.deg"
+                [xAxisLabel]="'Pressure'"
+                [legendTitle]="'Pressure'"
+                [yAxisLabel]="'Time'"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="false"
+                [xAxis]="false"
+                [yAxis]="false"
+                [gradient]="true"
+                [showGridLines]="false"
+                [customColors]="customColors"
+                [legend]="false"
+                >
+            </ngx-charts-area-chart>
+        </div>
+
+        
+        </div>
+
+        <div style="margin-top: 2vh ;" class="column">
+            <div class="subtitle">Temperature (Cº)</div>
+        <ngx-charts-area-chart 
+        [view]="[1150,100]"
+        [results]="cityService.temp"
+        [xAxisLabel]="'Percentage'"
+        [legendTitle]="''"
+        [yAxisLabel]="'Time'"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true"
+        [showGridLines]="false"
+        [customColors]="customColors"
+        >
+        </ngx-charts-area-chart>
+    </div>
+    </div>
+
+
+    <!--<div id="MinMax" class = "Container">
+        <div class="Title">Forecast</div>
+
+
+        <div class="Row">
+            <div class="Row" id="MinMaxRow"> 
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_upward</span>
+                <span>30º</span>
+                <span class="material-symbols-outlined icon" style="font-size: 20px; color: black;">arrow_downward</span>
+                <span>18º</span>
+            </div>
+            <div class="Row" id="MinMaxDay"> 
+                <img src="../../assets/Img/HeavyRainIcon.svg" width="30%">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="Title" style="font-size: 12px; color: black;"> Thursday </div>
+                    <div class="Subtitle" style="font-size: 12px;">Heavy Rain</div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>-->
+</div>

@@ -1,0 +1,16 @@
+<div *ngIf="cityService.followedCities.length == 0" id="MainContainer" style="justify-content: center;align-items: center;" >
+    <mat-spinner></mat-spinner>
+</div>
+<div id="MainContainer" class="row" style="flex-wrap: wrap;" *ngIf="cityService.followedCities.length != 0">
+    <div  *ngFor="let city of cityService.followedCities" id="CurrentWeather" class="container">
+        <div class="title row" style="align-items: center;">{{city.name}} - {{city.country}} 
+            <span (click)="deleteFollowedCity(city.name!)" style="font-size: 20px; cursor: pointer;" class="material-symbols-outlined">close</span>
+        </div>
+            <div id="City" (click)="selectCity(city)" [ngStyle]="{'background-image':'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('+city.image+')'}">
+                <div class="row" style="align-items: center;">
+                    <img [src]="city.temp! > 20 ? '../../assets/Img/SunnyIcon.svg' : (city.temp! > 10 ? '../../assets/Img/RainyIcon.svg' : '../../assets/Img/HeavyRainIcon.svg') " style="transform: scale(1.5);">
+                    <div style="font-weight: 500; color: white;font-size: 50px;">{{city.temp}}º</div>
+                </div>
+            </div>
+    </div>
+</div>

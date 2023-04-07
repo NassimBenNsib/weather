@@ -1,0 +1,70 @@
+<div id="MainContainer">
+    <div id="ImgContainer">
+        <!--<div id="Details">
+            <div id="Temp">18˚</div>
+            <div id="LocationDate">
+                <span id="Location">Sydney</span>
+                <span id="Date">7:43 AM - Monday, 6 Feb 2023</span>
+            </div>
+        </div>-->
+        <img src="../../assets/Img/Sydney.jpg">
+    </div>
+    <div id="FormContainer">
+        <div id="Logo">
+            <img src="../../assets/Img/LogoPink.png" width="200">
+        </div>
+        <div id="Welcome">
+            <h1>Welcome</h1>
+            <h5>Please enter your details</h5>
+        </div>
+        <form id="Form" #form="ngForm" (ngSubmit)="this.signUp(form)">
+            <div id="FullName">
+                <div class="column">
+                    <label for="Name">
+                        <span class="required">*</span>Name
+                        <span *ngIf="nameInput.invalid && nameInput.dirty" class="inputError">
+                            (At least 3 characters long)
+                        </span>
+                    </label>
+                    <input #nameInput="ngModel" ngModel type="text" id="Name" name="Name" placeholder="Enter your name" required minlength="3"><br><br>
+                </div>
+                <div class="column">
+                    <label for="Lastname">
+                        <span class="required">*</span>Last name
+                        <span *ngIf="lastnameInput.invalid && lastnameInput.dirty" class="inputError">
+                            (At least 3 characters long)
+                        </span>
+                    </label>
+                    <input #lastnameInput="ngModel" ngModel type="text" id="Lastname" name="Lastname" placeholder="Enter your last name" required minlength="3"><br><br>
+                </div>
+            </div>
+            <label for="Email">
+                <span class="required">*</span>Email
+                <span *ngIf="emailInput.invalid && emailInput.dirty" class="inputError">
+                    (Format is incorrect)
+                </span>
+            </label>
+            <input #emailInput="ngModel" ngModel type="email" id="Email" name="Email" placeholder="Enter your email" required pattern = "^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><br><br>
+            <label for="password">
+                <span class="required">*</span>Password
+                <span *ngIf="passwordInput.invalid && passwordInput.dirty" class="inputError">
+                    (At least 5 characters long)
+                </span>
+            </label>
+            <input #passwordInput="ngModel" ngModel type="password" id="Password" name="Password" placeholder="Enter your password" required minlength="5"><br><br>
+            <label for="confirmPassword">
+                <span class="required">*</span>Confirm password
+                <span *ngIf="confirmPasswordInput.dirty && passwordInput.value != confirmPasswordInput.value" class="inputError">
+                    (Does not match)
+                </span>
+            </label>
+            <input #confirmPasswordInput="ngModel" ngModel type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required minlength="5"><br><br>
+            
+            <button [disabled]="form.invalid || passwordInput.value != confirmPasswordInput.value" type="submit" mat-raised-button color="primary" id="SubmitBtn">Sign up</button>
+            <div id="SignIn">Already have an account ? &nbsp;<a [routerLink]="['/Login']">Sign in</a></div>
+        </form>
+        <br>
+        <div id="Continue" [routerLink]="['/Home']">Continue without an account</div>
+    </div>
+    
+</div>

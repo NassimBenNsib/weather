@@ -1,0 +1,60 @@
+<div  id="MainContainer">
+    <form id="Form" (ngSubmit)="this.update(form)" #form="ngForm">
+    <div id="Profile">
+        <span>Profile</span>
+        <span>Update your personal details here</span>
+    </div>
+    <hr>
+    <div id="Name">
+        <label for="Name">
+            <span class="required">*</span>Name
+            <br>
+            <span *ngIf="nameInput.invalid && nameInput.dirty" class="inputError">
+                (At least 3 characters long)
+            </span>
+        </label>
+        <input  #nameInput="ngModel" ngModel type="text"  id="Name" name="Name" placeholder="Enter your name" required minlength="3">
+    </div>
+    <hr>
+    <div id="Lastname">
+        <label for="Lastname">
+            <span class="required">*</span>Last name
+            <br>
+            <span *ngIf="lastnameInput.invalid && lastnameInput.dirty" class="inputError">
+                (At least 3 characters long)
+            </span>
+        </label>
+        <input #lastnameInput="ngModel" ngModel type="text" id="Lastname" name="Lastname" placeholder="Enter your lastname" required minlength="3">
+    </div>
+    <hr>
+    <div id="Email">
+        <label for="Email">
+            <span class="required">*</span>Email
+            <br>
+            <span *ngIf="emailInput.invalid && emailInput.dirty" class="inputError">
+                (Format is incorrect)
+            </span>
+        </label>
+        <input #emailInput="ngModel" ngModel type="email"  id="Email" name="Email" placeholder="Enter your email" required pattern = "^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+    </div>
+    <hr>
+    <!--<div id="Password">
+        <label for="Password">Password</label>
+        <input type="password" value="MyPassword" id="Password" name="Password" placeholder="Enter your password">
+    </div>
+    <hr>-->
+    <div id="Buttons">
+        <button (click)="reset(form)" mat-stroked-button color="accent" id="ResetBtn">Reset details</button>
+        <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary" id="SaveBtn">Save changes</button>
+    </div>
+</form>
+    <div id="Application">
+        <span>Application</span>
+        <span>Change application settings here</span>
+    </div>
+    <hr>
+    <div id="Name">
+        <label for="Name">Notifications</label>
+        <mat-slide-toggle></mat-slide-toggle>
+    </div>
+</div>
